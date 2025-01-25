@@ -1,49 +1,102 @@
-.plant.plant1.seed {
-    background-image: url('images/plant1-seed.png');
+/* plant1*/
+.plant.plant1.pot {
+    background-image: url('images/pot.png');
 }
 
-.plant.plant1.sprout {
-    background-image: url('images/plant1-sprout.png');
+.plant.plant1.sprout1 {
+    background-image: url('images/sprout1.png');
 }
 
-.plant.plant1.small-plant {
-    background-image: url('images/plant1-small-plant.png');
+.plant.plant1.sprout2 {
+    background-image: url('images/sprout2.png');
 }
 
-.plant.plant1.full-plant {
-    background-image: url('images/plant1-full-plant.png');
+.plant.plant1.flower1 {
+    background-image: url('images/plant1-flower1.png');
 }
 
-.plant.plant2.seed {
-    background-image: url('images/plant2-seed.png');
+.plant.plant1.flower2 {
+    background-image: url('images/plant1-flower2.png');
 }
 
-.plant.plant2.sprout {
-    background-image: url('images/plant2-sprout.png');
+.plant.plant1.flower3 {
+    background-image: url('images/plant1-flower3.png');
 }
 
-.plant.plant2.small-plant {
-    background-image: url('images/plant2-small-plant.png');
+/* plant2*/
+.plant.plant2.pot {
+    background-image: url('images/pot.png');
 }
 
-.plant.plant2.full-plant {
-    background-image: url('images/plant2-full-plant.png');
+.plant.plant2.sprout1 {
+    background-image: url('images/sprout1.png');
 }
 
-.plant.plant3.seed {
-    background-image: url('images/plant3-seed.png');
+.plant.plant2.sprout2 {
+    background-image: url('images/sprout2.png');
 }
 
-.plant.plant3.sprout {
-    background-image: url('images/plant3-sprout.png');
+.plant.plant2.flower1 {
+    background-image: url('images/plant2-flower1.png');
 }
 
-.plant.plant3.small-plant {
-    background-image: url('images/plant3-small-plant.png');
+.plant.plant2.flower2 {
+    background-image: url('images/plant2-flower2.png');
 }
 
-.plant.plant3.full-plant {
-    background-image: url('images/plant3-full-plant.png');
+.plant.plant2.flower3 {
+    background-image: url('images/plant2-flower3.png');
+}
+
+/* plant3*/
+
+.plant.plant3.pot {
+    background-image: url('images/pot.png');
+}
+
+.plant.plant3.sprout1 {
+    background-image: url('images/sprout1.png');
+}
+
+.plant.plant3.sprout2 {
+    background-image: url('images/sprout2.png');
+}
+
+.plant.plant3.flower1 {
+    background-image: url('images/plant3-flower1.png');
+}
+
+.plant.plant3.flower2 {
+    background-image: url('images/plant3-flower2.png');
+}
+
+.plant.plant3.flower3 {
+    background-image: url('images/plant3-flower3.png');
+}
+
+/*plant4*/
+.plant.plant4.pot {
+    background-image: url('images/pot.png');
+}
+
+.plant.plant4.sprout1 {
+    background-image: url('images/sprout1.png');
+}
+
+.plant.plant4.sprout2 {
+    background-image: url('images/sprout2.png');
+}
+
+.plant.plant4.flower1 {
+    background-image: url('images/plant4-flower1.png');
+}
+
+.plant.plant4.flower2 {
+    background-image: url('images/plant4-flower2.png');
+}
+
+.plant.plant4.flower3 {
+    background-image: url('images/plant4-flower3.png');
 }
 
 .plant {
@@ -52,5 +105,6 @@
     width: 150px;
     height: 150px;
     position: absolute;
-    transition: transform 0.5s ease; /* For aggressive mode scaling */
+    transition: transform 0.5s ease;
+    /* For aggressive mode scaling */
 }
