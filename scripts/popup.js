@@ -146,4 +146,29 @@ function updateImage() {
     nextButton.disabled = currentIndex === plantImages.length - 1;
 }
 
+// saves the interval timer when entered 
+const minutesInput = document.getElementById('minutesInput')
+const startTimerButton = document.getElementById('startTimerButton')
 
+startTimerButton.addEventListener('click', () => {
+    const minutes = parseInt(minutesInput.value);
+
+    chrome.storage.local.set({changeFrquency: minutes }, () => {
+        console.log(`Timer frequency set: ${minutes} minutes`);
+    });
+
+    chrome.runtime.sendMessage({
+        message: "setHydrationReminder",
+        frequency: minutes
+    });
+})
+
+// saves the water goal 
+const mLInput = document.getElementById('mLInput')
+
+startTimerButton.addEventListener('click', () => {
+    const waterGoal = parseInt(mLInput.value);
+    chrome.storage.local.set({waterGoal } , () => {
+        console.log(`Water goal set: ${waterGoal} mL`);
+    });
+});
