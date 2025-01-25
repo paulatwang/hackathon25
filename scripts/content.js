@@ -39,19 +39,19 @@ function triggerAggressiveMode() {
 
 function updatePlant() {
     // Get the selected image option from the storage mechanism
-    chrome.storage.local.get(["plantState"], function (result) {
+    chrome.storage.local.get(["selectedPlant", "plantState"], function (result) {
         // Get the selected image option from the storage mechanism
-        const { plantState } = result;
-        console.log("Selected image: " + plantState);
+        const { selectedPlant = "plant1", plantState = "seed" } = result;
+        console.log(`Selected plant: ${selectedPlant}, Plant state: ${plantState}`);
 
         // Get the plant element
         const plant = document.querySelector(".plant");
 
-        // Remove all classes from the plant element
-        plant.classList.remove(...plant.classList);
+        // // Remove all classes from the plant element
+        // plant.classList.remove(...plant.classList);
 
         // Add the plant class and the selected image class to the plant element
-        plant.classList.add("plant", plantState);
+        plant.className = `plant ${selectedPlant} ${plantState}`;
     });
 }
 

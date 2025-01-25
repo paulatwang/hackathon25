@@ -3,21 +3,21 @@
     "name": "Virtual Plant Extension",
     "description": "A virtual plant that keeps you healthy",
     "background": {
-      "service_worker": "background.js"
+      "service_worker": "scripts/background.js"
     },
     "version": "1.0",
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["./content.js"],
-        "css": ["./content.css"],
+        "js": ["scripts/content.js"],
+        "css": ["scripts/content.css"],
         "run_at": "document_start",
         "all_frames": true
       }
     ],
     "web_accessible_resources": [
       {
-        "resources": ["/images/*"],
+        "resources": ["images/*"],
         "matches": ["<all_urls>"]
       }
     ],
