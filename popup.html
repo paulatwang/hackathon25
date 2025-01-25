@@ -7,14 +7,18 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="mainContainer">
         <div class="title">Plant Picker</div>
 
         <!-- Carousel Section -->
         <div class="carousel">
-            <button class="carousel-button prev" id="prevButton">‹</button>
+            <button class="carousel-button prev" id="prevButton">
+                <img src="images/your-prev-image.png" alt="Previous" style="width: 20px; height: 20px;">
+            </button>
             <img id="plantImage" src="images/plant1.png" alt="Plant 1">
-            <button class="carousel-button next" id="nextButton">›</button>
+            <button class="carousel-button next" id="nextButton">
+                <img src="images/your-next-image.png" alt="Next" style="width: 20px; height: 20px;">
+            </button>
         </div>
 
         <!-- Select Button -->
@@ -40,7 +44,32 @@
 
 </div>
 
-    <script src="popup.js"></script>
+    <!-- New Screen Content -->
+    <div class="container" id="newScreen" style="display: none;">
+        <div class="title">Timer Started</div>
+        <p>Your timer has begun. Stay tuned for updates!</p>
+        <button class="timer-button" id="backButton">Go Back</button>
+    </div>
+
+    <script>
+        document.getElementById("startTimerButton").addEventListener("click", function () {
+            // Hide the main container
+            document.getElementById("mainContainer").style.display = "none";
+            
+            // Show the new screen
+            document.getElementById("newScreen").style.display = "block";
+        });
+
+        document.getElementById("newScreen").addEventListener("click", function (event) {
+            if (event.target.id === "backButton") {
+                // Show the main container again
+                document.getElementById("mainContainer").style.display = "block";
+
+                // Hide the new screen
+                document.getElementById("newScreen").style.display = "none";
+            }
+        });
+    </script>
 </body>
 
 </html>
