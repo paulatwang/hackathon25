@@ -4,6 +4,25 @@
 <head>
     <title>Plant Picker</title>
     <link rel="stylesheet" href="styles/popup.css">
+    <style>
+        .carousel-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            outline: none; /* Removes focus outline */
+        }
+    
+        .carousel-button img {
+            width: 100px;
+            height: 100px;
+        }
+    
+        .carousel-button:focus {
+            outline: none; /* Ensures no outline appears on focus */
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -12,14 +31,52 @@
 
         <!-- Carousel Section -->
         <div class="carousel">
+            <!-- Previous Button -->
             <button class="carousel-button prev" id="prevButton">
-                <img src="images/your-prev-image.png" alt="Previous" style="width: 20px; height: 20px;">
+                <img src="images/Left_Arrow.png" alt="Previous">
             </button>
-            <img id="plantImage" src="images/plant1.png" alt="Plant 1">
+            
+            <!-- Main Plant Image -->
+           
+            <img id="plantImage" src="images/seed1.png" alt="seed" class="plant-image" style="width: 350px;">
+        
+            <!-- Next Button -->
             <button class="carousel-button next" id="nextButton">
-                <img src="images/your-next-image.png" alt="Next" style="width: 20px; height: 20px;">
+                <img src="images/Right_Arrow.png" alt="Next">
             </button>
         </div>
+
+        <script>
+            // Array of plant images
+            const plantImages = [
+                'images/seed1.png', // Image 1
+                'images/seed2.png', // Image 2
+                'images/seed3.png',  // Image 4
+                'images/seed4.png', // Image 3
+            ];
+        
+            let currentIndex = 0; // Index to track current image
+        
+            // Function to update the plant image
+            function updatePlantImage() {
+                const plantImageElement = document.getElementById("plantImage");
+                plantImageElement.src = plantImages[currentIndex];
+                plantImageElement.alt = `Plant ${currentIndex + 1}`;
+            }
+        
+            // Event listener for the Next button
+            document.getElementById("nextButton").addEventListener("click", function() {
+                currentIndex = (currentIndex + 1) % plantImages.length; // Increment index and wrap around
+                updatePlantImage();
+            });
+        
+            // Event listener for the Previous button
+            document.getElementById("prevButton").addEventListener("click", function() {
+                currentIndex = (currentIndex - 1 + plantImages.length) % plantImages.length; // Decrement index and wrap around
+                updatePlantImage();
+            });
+        </script>
+        
 
         <!-- Select Button -->
         <button class="select-button" id="selectPlantButton">Select Plant</button>
