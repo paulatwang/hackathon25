@@ -24,7 +24,7 @@ function onload() {
         // Get the selected image option from the storage mechanism
         let plantType = result.plantType;
         console.log("Selected image: " + plantType);
-
+      
         // Add the plant class and type to the plant element
         plant.classList.add(plantType); // e.g., plant1, plant2, etc.
         plant.classList.add(plantStage); // e.g., pot, sprout1, sprout2, etc.
@@ -111,6 +111,7 @@ window.addEventListener("load", onload);
 
 
 
+
 // WATER CONSUMPTION
 // let totalWater = 0;
 
@@ -144,6 +145,5 @@ window.addEventListener("load", onload);
 // });
 
 // TODO: ADD SKIP BUTTON
-
 
 

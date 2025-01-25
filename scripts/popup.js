@@ -150,23 +150,40 @@ function updateImage() {
 const minutesInput = document.getElementById('minutesInput')
 const startTimerButton = document.getElementById('startTimerButton')
 
-startTimerButton.addEventListener('click', () => {
-    const minutes = parseInt(minutesInput.value);
-
-    chrome.storage.local.set({changeFrquency: minutes }, () => {
-        console.log(`Timer frequency set: ${minutes} minutes`);
+function lockInputAndButton(value) {
+    minutesInput.value = value;
+    minutesInput.disabled = true;
+    startTimerButton.disabled = true;
+}
+chrome.storage.local.get('changeFrequency', (result)=> {
+    if (result.changeFrequency) {
+     //   minutesInput.value = result.changeFrequency;
+       // minutesInput.disabled = true;
+       // startTimerButton.disabled = true;
+       lockInputAndButton(result.changeFrequency);
+    }
+});
+    startWatering.addEventListener('click', () => {
+        const minutes = parseInt(minutesInput.value);
+        if (!isNaN(minutes && minutes > 0)){
+        chrome.storage.local.set({changeFrequency: minutes }, () => {
+          //  minutesInput.disabled = true;
+          //  startTimerButton.disabled = true;  
+          lockInputAndButton(minutes);
     });
 
     chrome.runtime.sendMessage({
         message: "setHydrationReminder",
         frequency: minutes
-    });
-})
+        });   
+    } 
+});
+
 
 // saves the water goal 
 const mLInput = document.getElementById('mLInput')
 
-startTimerButton.addEventListener('click', () => {
+startWatering.addEventListener('click', () => {
     const waterGoal = parseInt(mLInput.value);
     chrome.storage.local.set({waterGoal } , () => {
         console.log(`Water goal set: ${waterGoal} mL`);

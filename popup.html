@@ -79,22 +79,62 @@
         
 
         <!-- Select Button -->
-        <button class="select-button" id="selectPlantButton">Select Plant</button>
+         <div class="input-container">
+        <button class="btn" id="selectPlantButton">Select Plant</button>
 
+        <script>
+            // Event listener for the Select Plant button
+            let isPlantSelected = false;
+            
+            document.getElementById("selectPlantButton").addEventListener("click", function () {
+                isPlantSelected = !isPlantSelected; // Toggle the selection state
+            
+                const plantImage = document.getElementById("plantImage");
+            
+                if (isPlantSelected) {
+                    // Change button color to red
+                    this.style.backgroundColor = "red";
+                    this.style.color = "white"; // Optional: change text color for better contrast
+                    
+                    // Disable carousel buttons
+                    document.getElementById("prevButton").disabled = true;
+                    document.getElementById("nextButton").disabled = true;
+            
+                    // Add pulse animation class to the plant image
+                    plantImage.classList.add("pulse");
+            
+                    // Remove pulse class after animation ends
+                    setTimeout(() => {
+                        plantImage.classList.remove("pulse");
+                    }, 500); // Duration of the pulse animation (in ms)
+                } else {
+                    // Reset button color
+                    this.style.backgroundColor = "#FFD700"; // or your original color
+                    this.style.color = "black"; // Reset text color
+            
+                    // Enable carousel buttons
+                    document.getElementById("prevButton").disabled = false;
+                    document.getElementById("nextButton").disabled = false;
+                }
+            });
+            </script>
+            
         <!-- Timer Section -->
-        <div class="timer-container">
+         <div class="input-group">
             <input type="number" id="minutesInput" placeholder="Minutes" min="1">
-            <button class="timer-button" id="startTimerButton">Set Interval Time</button>
-        </div>
+          <!--   <button class="timer-button" id="startTimerButton">Set Interval Time</button> -->
+       
+        <span>min</span>       
+ </div>
 
         <!-- Water goal section -->
-        <div class="water-container">
-            <div class="WaterGoalForTheDay">
-                <input type="number" id="mLInput" placeholder="Enter Amount">mL
-                <button class="water-button" id="waterGoalDay">Set Water Goal</button>
+        <div class="input-group">
+                <input type="number" id="mLInput" placeholder="Enter Amount">
+             <!--    <button class="water-button" id="waterGoalDay">Set Water Goal</button> -->
+           <span>mL</span>
             </div>
             <!-- Select Button -->
-            <button class="select-button" id="startWatering">Start Watering</button>
+            <button class="btn" id="startWatering">Start Watering</button>
         </div>
     </div>
 
@@ -102,7 +142,12 @@
     <div class="container" id="wateringPopup" style="display: none;">
         <div class="title">Watering in Progress</div>
         <p>Your watering session has begun. Make sure to monitor your plants!</p>
-        <button class="timer-button" id="backButton">Go Back</button>
+        <div class="hydration-info">
+            <p>Time Remaining: <span id="hydrationReminder">0</span> min</p>
+            <p>Total Water Drank: <span id="hydrationData.totalWaterDrank">0</span> ml</p>
+        </div>
+        <button class="btn" id="backButton">Go Back</button>
+        
     </div>
 
     <script>
