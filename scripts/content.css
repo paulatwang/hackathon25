@@ -1,0 +1,56 @@
+.plant.plant1.seed {
+    background-image: url('images/plant1-seed.png');
+}
+
+.plant.plant1.sprout {
+    background-image: url('images/plant1-sprout.png');
+}
+
+.plant.plant1.small-plant {
+    background-image: url('images/plant1-small-plant.png');
+}
+
+.plant.plant1.full-plant {
+    background-image: url('images/plant1-full-plant.png');
+}
+
+.plant.plant2.seed {
+    background-image: url('images/plant2-seed.png');
+}
+
+.plant.plant2.sprout {
+    background-image: url('images/plant2-sprout.png');
+}
+
+.plant.plant2.small-plant {
+    background-image: url('images/plant2-small-plant.png');
+}
+
+.plant.plant2.full-plant {
+    background-image: url('images/plant2-full-plant.png');
+}
+
+.plant.plant3.seed {
+    background-image: url('images/plant3-seed.png');
+}
+
+.plant.plant3.sprout {
+    background-image: url('images/plant3-sprout.png');
+}
+
+.plant.plant3.small-plant {
+    background-image: url('images/plant3-small-plant.png');
+}
+
+.plant.plant3.full-plant {
+    background-image: url('images/plant3-full-plant.png');
+}
+
+.plant {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    transition: transform 0.5s ease; /* For aggressive mode scaling */
+}
