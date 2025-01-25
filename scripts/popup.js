@@ -12,3 +12,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const aggressiveToggle = document.getElementById("aggressiveToggle");
+
+    // Load the initial state of the toggle
+    chrome.storage.local.get(["isAggressiveMode"], (result) => {
+        aggressiveToggle.checked = result.isAggressiveMode || false;
+    });
+
+    // Listen for toggle changes
+    aggressiveToggle.addEventListener("change", () => {
+        const isAggressiveMode = aggressiveToggle.checked;
+        chrome.storage.local.set({ isAggressiveMode }, () => {
+            console.log("Aggressive Mode set to:", isAggressiveMode);
+        });
+    });
+});

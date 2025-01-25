@@ -1,18 +1,41 @@
 // PLANT
 
 // Listen for messages from the popup script
+// Listen for aggressive reminders or other messages
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(
         sender.tab
             ? "from a content script:" + sender.tab.url
             : "from the extension"
     );
+
+    if (request.action === "aggressiveReminder") {
+        // Handle aggressive mode behavior
+        triggerAggressiveMode();
+        sendResponse({ status: "Aggressive mode triggered" });
+    }
+
     if (request.message === "updatePlant") {
         console.log(`Message: ${request.message}`);
         updatePlant();
         sendResponse({ status: "Image update success" });
     }
 });
+
+// Function to trigger aggressive mode behavior
+function triggerAggressiveMode() {
+    const plant = document.querySelector(".plant");
+    if (plant) {
+        // Make the plant very big
+        plant.style.transform = "scale(3)"; // Increase the size by 3x
+        plant.style.transition = "transform 0.5s ease"; // Smooth transition
+
+        // Revert to normal size after a delay
+        setTimeout(() => {
+            plant.style.transform = "scale(1)"; // Back to normal size
+        }, 5000); // 5 seconds delay
+    }
+}
 
 function updatePlant() {
     // Get the selected image option from the storage mechanism
