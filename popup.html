@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <title>Image Selector</title>
+    <title>Plant Picker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h3>Select Your Plant</h3>
-    <script src="popup.js"></script>
+    <div class="container">
+        <div class="title">Plant Picker</div>
 
-    <label>
-        <input type="checkbox" id="aggressiveToggle"> Aggressive Mode
-    </label>
+        <!-- Carousel Section -->
+        <div class="carousel">
+            <button class="carousel-button prev" id="prevButton">‹</button>
+            <img id="plantImage" src="images/plant1.png" alt="Plant 1">
+            <button class="carousel-button next" id="nextButton">›</button>
+        </div>
+
+        <!-- Select Button -->
+        <button class="select-button" id="selectPlantButton">Select Plant</button>
+
+        <!-- Timer Section -->
+        <div class="timer-container">
+            <input type="number" id="minutesInput" placeholder="Minutes" min="1">
+            <button class="timer-button" id="startTimerButton">Start Timer</button>
+            <p id="timerDisplay">Timer not started</p>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
 </body>
 
 </html>
