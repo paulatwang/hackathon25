@@ -1,3 +1,5 @@
+// PLANT
+
 // Listen for messages from the popup script
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(
@@ -71,5 +73,61 @@ function onload() {
     setPosition(plantElement);
 
 }
+
+// WATER CONSUMPTION
+let totalWater = 0;
+
+// Initializes chrome.storage totalWater 
+document.addEventListener("DOMContentLoaded", function () {
+    chrome.storage.local.get(["totalWater"], function (result) {
+        // if total is NaN, initializes to 0
+        if (result.totalWater == undefined) {
+            chrome.storage.local.set({ totalWater: 0 });
+
+            let midnight = new Date(); midnight.setHours(24, 0, 0, 0);
+            chrome.storage.local.set({ prevDrinkTime: midnight.toISOString() }); // initialize prev drinking time
+        } else {
+            totalWater = result.totalWater;
+        }
+
+        document.getElementById("totalWater").textContent = totalWater.toFixed(1);
+    })
+})
+
+// Drink button
+document.getElementById("drinkButton").addEventListener("click", function () {
+    let inputWater = parseFloat(document.getElementById("waterIn").value);
+
+    if (!isNaN(inputWater)) {
+        totalWater += inputWater;
+
+        chrome.storage.local.set({ totalWater: totalWater }); // save totalWater to chrome storage
+        document.getElementById("totalWater").textContent = totalWater.toFixed(1); // update displayed water
+        document.getElementById("waterIn").value = ""; // clear input value
+        let now = new Date();
+        chrome.storage.local.set({ prevDrinkTime: now.toISOString() }); // update prevDrinkTime
+    }
+});
+
+// TODO: ADD SKIP BUTTON
+
+function resetNewDay() {
+    let now = new Date();
+    let midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+
+    let timeTOMidnight = midnight - now;
+    setTimeout(() => {
+        totalWater = 0;
+
+        chrome.storage.local.set({ totalWater: totalWater }); //reset totalWater in chrome storage
+        chrome.storage.local.set({ prevDrinkTime: midnight.toISOString() }); //reset prevDrinkTime in chrome storage
+
+        document.getElementById("totalWater").textContent = totalWater.toFixed(1);
+        resetNewDay(); //call again for next day
+    }, timeTOMidnight);
+}
+
+resetNewDay();
 
 
