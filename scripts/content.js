@@ -20,19 +20,10 @@ function onload() {
     plant.classList.add("plant");
 
     // Check if there is a selected image option from the storage mechanism
-    chrome.storage.local.get(["selectedPlant"], function (result) {
+    chrome.storage.local.get(["plantType"], function (result) {
         // Get the selected image option from the storage mechanism
-        let { selectedPlant } = result;
-        console.log("Selected image: " + selectedPlant);
-
-        // If no image selected, set a default
-        if (!selectedPlant) {
-            selectedPlant = "plant1.pot";
-            console.log("No image selected. Defaulting to: " + selectedPlant);
-        }
-
-        // Split the selectedPlant string into plant type and growth stage
-        const [plantType, plantStage] = selectedPlant.split('.');
+        let plantType = result.plantType;
+        console.log("Selected image: " + plantType);
 
         // Add the plant class and type to the plant element
         plant.classList.add(plantType); // e.g., plant1, plant2, etc.
@@ -41,7 +32,7 @@ function onload() {
 
     document.body.appendChild(plant);
     const plantElement = document.querySelector(".plant");
-    // Set the initial random position for the plant
+    // Set the initial position for the plant
     setPosition(plantElement);
 }
 
@@ -68,6 +59,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     }
 });
 
+window.addEventListener("load", onload);
 
 // Listen for messages from the popup script
 // chrome.runtime.onMessage.addListener(function (request, sendResponse) {

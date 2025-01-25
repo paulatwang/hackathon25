@@ -12,15 +12,15 @@
 }
 
 .plant.plant1.flower1 {
-    background-image: url('images/plant1-flower1.png');
+    background-image: url('images/S1_flower1.png');
 }
 
 .plant.plant1.flower2 {
-    background-image: url('images/plant1-flower2.png');
+    background-image: url('images/S1_flower2.png');
 }
 
 .plant.plant1.flower3 {
-    background-image: url('images/plant1-flower3.png');
+    background-image: url('images/S1_flower3.png');
 }
 
 /* plant2*/
@@ -37,15 +37,15 @@
 }
 
 .plant.plant2.flower1 {
-    background-image: url('images/plant2-flower1.png');
+    background-image: url('images/S1_flower1.png');
 }
 
 .plant.plant2.flower2 {
-    background-image: url('images/plant2-flower2.png');
+    background-image: url('images/S1_flower2.png');
 }
 
 .plant.plant2.flower3 {
-    background-image: url('images/plant2-flower3.png');
+    background-image: url('images/S1_flower3.png');
 }
 
 /* plant3*/
@@ -63,15 +63,15 @@
 }
 
 .plant.plant3.flower1 {
-    background-image: url('images/plant3-flower1.png');
+    background-image: url('images/S1_flower1.png');
 }
 
 .plant.plant3.flower2 {
-    background-image: url('images/plant3-flower2.png');
+    background-image: url('images/S1_flower2.png');
 }
 
 .plant.plant3.flower3 {
-    background-image: url('images/plant3-flower3.png');
+    background-image: url('images/S1_flower3.png');
 }
 
 /*plant4*/
@@ -88,15 +88,15 @@
 }
 
 .plant.plant4.flower1 {
-    background-image: url('images/plant4-flower1.png');
+    background-image: url('images/S1_flower1.png');
 }
 
 .plant.plant4.flower2 {
-    background-image: url('images/plant4-flower2.png');
+    background-image: url('images/S1_flower2.png');
 }
 
 .plant.plant4.flower3 {
-    background-image: url('images/plant4-flower3.png');
+    background-image: url('images/S1_flower3.png');
 }
 
 .plant {
