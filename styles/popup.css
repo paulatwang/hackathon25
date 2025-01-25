@@ -26,6 +26,7 @@ body {
 }
 
 .title {
+    font-family: 'Roboto', sans-serif;
     font-size: 48px;
     margin-bottom: 1rem;
     color: #4D92BC;
@@ -93,6 +94,22 @@ input[type="number"] {
     border: 2px solid #000;
     border-radius: 5px;
     margin-right: 5px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1); /* Scale up */
+    }
+    100% {
+        transform: scale(1); /* Scale back to original size */
+    }
+}
+
+.pulse {
+    animation: pulse 0.5s; /* Duration of the pulse animation */
 }
 
 .timer-button {
