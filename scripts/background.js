@@ -1,26 +1,32 @@
 // Initialize the extension
-let isAggressiveMode = true;
+// let isAggressiveMode = false;
 
 // * Initialize hydration data when the extension is installed
 chrome.runtime.onInstalled.addListener(async () => {
     console.log("Plant Extension Installed");
 
     // Set default values if not already set
-    const data = await chrome.storage.local.get(["totalWater", "plantState"]);
+    const data = await chrome.storage.local.get(["totalWater", "waterGoal", "plantStage", "plantType"]);
     if (!data.totalWater) {
-        await chrome.storage.local.set({
-            totalWater: { timesDrank: 0, totalWaterDrank: 0 },
-        });
+        await chrome.storage.local.set({ totalWater: 0 });
     }
-    if (!data.plantState) {
-        await chrome.storage.local.set({ plantState: "seed" });
+    if (!data.waterGoal) {
+        await chrome.storage.local.set({ waterGoal: 2000 }) // in ml
+    }
+    if (!data.plantStage) {
+        await chrome.storage.local.set({ plantStage: "pot" });
+    }
+    if (!data.plantType) {
+        await chrome.storage.local.set({ plantType: "plant1" });
     }
 });
 
 // * Set reminders based on user-defined frequency
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "setHydrationReminder") {
-        const { frequency } = request.goals;
+    if (request.action === "setUserInput") {
+        const frequency = request.frequency;
+        const userType = request.plantType;
+        const userGoal = request.waterGoal;
 
         // Clear existing alarms
         chrome.alarms.clearAll(() => {
@@ -31,71 +37,49 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             console.log(`Hydration reminder set for every ${frequency} minutes.`);
         });
 
+        chrome.storage.local.set({ plantType: userType, waterGoal: userGoal });
+
         sendResponse({ status: "success" });
     }
 });
-
-// * Handle alarms for hydration reminders
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === "hydrationReminder") {
-        chrome.notifications.create({
-            type: "basic",
-            iconUrl: "icon.png",
-            title: "Time to Drink Water!",
-            message: "Stay hydrated and help your plant grow!",
-        });
-
-        // Notify content.js only if aggressive mode is enabled
-        chrome.storage.local.get(["isAggressiveMode"], (result) => {
-            if (result.isAggressiveMode) {
-                chrome.runtime.sendMessage({ action: "aggressiveReminder" });
-            }
-        });
-    }
-});
-
 
 // * Update progress and plant state when the user drinks water
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "drinkWater") {
         const amount = request.amount;
 
-        chrome.storage.local.get(["hydrationData", "hydrationGoals"], (data) => {
-            const hydrationData = data.hydrationData || { timesDrank: 0, totalWaterDrank: 0 };
-            hydrationData.timesDrank += 1;
-            hydrationData.totalWaterDrank += amount;
+        chrome.storage.local.get(["totalWater", "waterGoal"], (data) => {
+            const newWater = data.totalWater + amount;
+            const waterGoal = data.waterGoal;
 
-            chrome.storage.local.set({ hydrationData }, () => {
+            chrome.storage.local.set({ totalWater: newWater }, () => {
                 // Update the plant state based on progress
-                const { dailyGoal } = data.hydrationGoals || { dailyGoal: 2000 };
-                const progress = hydrationData.totalWaterDrank / dailyGoal;
+                const states = ["pot", "sprout1", "sprout2", "flower1", "flower2", "flower3"]
+                const idx = (totalWater / waterGoal) * states.length;
+                const newStage = states[Math.floor(idx)];
 
-                let newPlantState = "seed";
-                if (progress >= 1) newPlantState = "full-plant";
-                else if (progress >= 0.5) newPlantState = "small-plant";
-                else if (progress >= 0.25) newPlantState = "sprout";
-
-                chrome.storage.local.set({ plantState: newPlantState }, () => {
-                    console.log("Plant state updated to:", newPlantState);
+                chrome.storage.local.set({ plantStage: newStage }, () => {
+                    console.log("Plant state updated to:", newStage);
                 });
 
-                sendResponse({ status: "success", hydrationData, newPlantState });
+                sendResponse({ status: "success", totalWater, newStage });
             });
         });
-
         return true; // Keep the messaging channel open for async response
     }
 });
 
-// Reset reminders and tracking on browser startup
-chrome.runtime.onStartup.addListener(async () => {
-    console.log("Browser started. Resetting reminders.");
-    const data = await chrome.storage.local.get("hydrationGoals");
-    if (data.hydrationGoals) {
-        const { frequency } = data.hydrationGoals;
-        chrome.alarms.clearAll(() => {
-            chrome.alarms.create("hydrationReminder", { periodInMinutes: frequency });
-            console.log(`Hydration reminder reset for every ${frequency} minutes.`);
+function resetNewDay() {
+    let now = new Date();
+    let midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+
+    let timeToMidnight = midnight - now;
+    setTimeout(() => {
+        chrome.storage.local.set({ totalWater: 0, waterGoal: 2000, plantType: "plant1", plantStage: "pot" }, () => {
+            console.log("Plant and water data reset for a new day.");
         });
-    }
-});
+        resetNewDay(); //call again for next day
+    }, timeToMidnight);
+}
+resetNewDay(); // Initialize the reset function when the background script loads
