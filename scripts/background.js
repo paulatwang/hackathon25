@@ -1,5 +1,5 @@
 // Initialize the extension
-let isAggressiveMode = false;
+let isAggressiveMode = true;
 
 // * Initialize hydration data when the extension is installed
 chrome.runtime.onInstalled.addListener(async () => {
