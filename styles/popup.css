@@ -171,3 +171,19 @@ input[type="number"] {
 .select-button:hover {
     background-color: #E6C200;
 }
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1); /* Scale up */
+    }
+    100% {
+        transform: scale(1); /* Scale back to original size */
+    }
+}
+
+.pulse {
+    animation: pulse 0.5s; /* Duration of the pulse animation */
+}
