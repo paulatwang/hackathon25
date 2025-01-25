@@ -28,45 +28,44 @@
         <div class="timer-container">
             <input type="number" id="minutesInput" placeholder="Minutes" min="1">
             <button class="timer-button" id="startTimerButton">Set Interval Time</button>
-            
         </div>
 
         <!-- Water goal section -->
-         <div class="water-container">
+        <div class="water-container">
             <div class="WaterGoalForTheDay">
-            <input type="number" id="mLInput" placeholder="Enter Amount">mL 
-            <button class="water-button" id="waterGoalDay">Set Water Goal</button>
-        <!--    <p id="waterDisplay"> Total water drank today: <span id="waterAmount">0</span> mL</p> -->
-</div>
+                <input type="number" id="mLInput" placeholder="Enter Amount">mL
+                <button class="water-button" id="waterGoalDay">Set Water Goal</button>
+            </div>
+            <!-- Select Button -->
+            <button class="select-button" id="startWatering">Start Watering</button>
+        </div>
+    </div>
 
-<!-- Select Button -->
-<button class="select-button" id="startWatering">Start Watering</button>
-
-</div>
-
-    <!-- New Screen Content -->
-    <div class="container" id="newScreen" style="display: none;">
-        <div class="title">Timer Started</div>
-        <p>Your timer has begun. Stay tuned for updates!</p>
+    <!-- New Popup for Start Watering -->
+    <div class="container" id="wateringPopup" style="display: none;">
+        <div class="title">Watering in Progress</div>
+        <p>Your watering session has begun. Make sure to monitor your plants!</p>
         <button class="timer-button" id="backButton">Go Back</button>
     </div>
 
     <script>
-        document.getElementById("startTimerButton").addEventListener("click", function () {
+        // Event listener for the Start Watering button
+        document.getElementById("startWatering").addEventListener("click", function () {
             // Hide the main container
             document.getElementById("mainContainer").style.display = "none";
             
-            // Show the new screen
-            document.getElementById("newScreen").style.display = "block";
+            // Show the watering popup
+            document.getElementById("wateringPopup").style.display = "block";
         });
 
-        document.getElementById("newScreen").addEventListener("click", function (event) {
+        // Event listener for the Back button in the popup
+        document.getElementById("wateringPopup").addEventListener("click", function (event) {
             if (event.target.id === "backButton") {
                 // Show the main container again
                 document.getElementById("mainContainer").style.display = "block";
 
-                // Hide the new screen
-                document.getElementById("newScreen").style.display = "none";
+                // Hide the watering popup
+                document.getElementById("wateringPopup").style.display = "none";
             }
         });
     </script>
