@@ -119,58 +119,68 @@ document.addEventListener("DOMContentLoaded", function () {
             waterGoal: goal,
             plantType: userType
         }, function (response) {
-
             console.log("Response from background:", response);
         });
-
-        // Event listener for the Quit Session button in the popup
-        document.getElementById("wateringPopup").addEventListener("click", function (event) {
-            if (event.target.id === "quitSessionButton") {
-                window.close();
-            }
-        });
-
-
-        chrome.storage.local.get(["currentScreen"], function (result) {
-            const currentScreen = result.currentScreen || "mainContainer";
-
-            document.querySelectorAll(".container").forEach(container => {
-                container.style.display = "none";
-            });
-
-            document.getElementById(currentScreen).style.display = "block";
-
-            document.getElementById("startWatering").addEventListener("click", function () {
-
-                chrome.storage.local.set({ currentScreen: "wateringPopup" }, function () {
-                    document.getElementById("mainContainer").style.display = "none";
-                    document.getElementById("wateringPopup").style.display = "block";
-                });
-            });
-
-            document.getElementById("quitSessionButton").addEventListener("click", function () {
-                chrome.storage.local.set({ currentScreen: "mainContainer" }, function () {
-
-                    document.getElementById("mainContainer").style.display = "block";
-                    document.getElementById("wateringPopup").style.display = "none";
-                });
-            });
-        });
     });
 
-    chrome.alarms.get("hydrationReminder", function (alarm) {
-        if (alarm) {
-            const currentTime = Date.now();
-            const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
-
-
-            if (remainingTime > 1) {
-                const minutesRemaining = Math.floor(remainingTime / 60000);
-                document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
-            } else {
-                document.getElementById("timeRemaining").textContent = `<1`;
-            }
+    // Event listener for the Quit Session button in the popup
+    document.getElementById("wateringPopup").addEventListener("click", function (event) {
+        if (event.target.id === "quitSessionButton") {
+            chrome.storage.local.set({ totalWater: 0, waterGoal: 0, plantStage: "pot" }, () => { });
+            window.close();
         }
     });
+
+    document.getElementById("quitSessionButton").addEventListener("click", function () {
+        chrome.storage.local.set({ currentScreen: "mainContainer" }, function () {
+            document.getElementById("mainContainer").style.display = "block";
+            document.getElementById("wateringPopup").style.display = "none";
+        });
+    });
+
+    chrome.storage.local.get(["currentScreen"], function (result) {
+        const currentScreen = result.currentScreen || "mainContainer";
+
+        document.querySelectorAll(".container").forEach(container => {
+            container.style.display = "none";
+        });
+
+        document.getElementById(currentScreen).style.display = "block";
+
+        document.getElementById("startWatering").addEventListener("click", function () {
+
+            chrome.storage.local.set({ currentScreen: "wateringPopup" }, function () {
+                document.getElementById("mainContainer").style.display = "none";
+                document.getElementById("wateringPopup").style.display = "block";
+            });
+        });
+    });
+
+    // first fetch
+    function updateMetrics() {
+        chrome.alarms.get("hydrationReminder", function (alarm) {
+            if (alarm) {
+                const currentTime = Date.now();
+                const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
+
+
+                if (remainingTime > 1) {
+                    const minutesRemaining = Math.ceil(remainingTime / 60000);
+                    document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
+                } else {
+                    document.getElementById("timeRemaining").textContent = `<1`;
+                }
+            }
+        });
+        chrome.storage.local.get(["totalWater", "waterGoal"], (data) => {
+            const totalWater = data.totalWater;
+            const waterGoal = data.waterGoal;
+            const progress = Math.floor(totalWater / waterGoal * 100);
+            document.getElementById("totalWaterDrank").textContent = `${totalWater}`;
+            document.getElementById("waterGoal").textContent = `You are ${progress}% of the way to your ${waterGoal}ml goal!`;
+        });
+    }
+    updateMetrics();
+    setInterval(updateMetrics, 5000); // poll every few seconds bc hackathon
 });
 
