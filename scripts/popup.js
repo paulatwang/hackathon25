@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
+
         const freq = parseInt(document.getElementById("minutesInput").value);
         const goal = parseInt(document.getElementById("mLInput").value);
 
@@ -115,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Invalid input: Please enter numeric values for frequency and water goal.");
             return;
         }
+
 
 
         // Send message to background.js
@@ -146,47 +148,45 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-});
+    document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded", function () {
+        const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
 
-    const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
-
-    document.querySelectorAll(".container").forEach(container => {
-        container.style.display = "none";
-    });
-
-    document.getElementById(currentScreen).style.display = "block";
-
-    document.getElementById("startWatering").addEventListener("click", function () {
-
-        localStorage.setItem("currentScreen", "wateringPopup");
-        document.getElementById("mainContainer").style.display = "none";
-        document.getElementById("wateringPopup").style.display = "block";
-    });
-
-
-    document.getElementById("quitSessionButton").addEventListener("click", function () {
-
-        localStorage.setItem("currentScreen", "mainContainer");
-        document.getElementById("mainContainer").style.display = "block";
-    });
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    chrome.alarms.get("hydrationReminder", function (alarm) {
-        if (alarm) {
-            const currentTime = Date.now();
-            const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
-
-
-            if (remainingTime > 1) {
-                const minutesRemaining = Math.floor(remainingTime / 60000);
-                document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
-            } else {
-                document.getElementById("timeRemaining").textContent = `<1`;
-            }
+        document.querySelectorAll(".container").forEach(container => {
+            container.style.display = "none";
         });
-});
+
+        document.getElementById(currentScreen).style.display = "block";
+
+        document.getElementById("startWatering").addEventListener("click", function () {
+
+            localStorage.setItem("currentScreen", "wateringPopup");
+            document.getElementById("mainContainer").style.display = "none";
+            document.getElementById("wateringPopup").style.display = "block";
+        });
+
+
+        document.getElementById("quitSessionButton").addEventListener("click", function () {
+
+            localStorage.setItem("currentScreen", "mainContainer");
+            document.getElementById("mainContainer").style.display = "block";
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        chrome.alarms.get("hydrationReminder", function (alarm) {
+            if (alarm) {
+                const currentTime = Date.now();
+                const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
+
+
+                if (remainingTime > 1) {
+                    const minutesRemaining = Math.floor(remainingTime / 60000);
+                    document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
+                } else {
+                    document.getElementById("timeRemaining").textContent = `<1`;
+                }
+            });
+    });
 

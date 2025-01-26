@@ -61,15 +61,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
             chrome.storage.local.set({ totalWater: newWater }, () => {
                 // Update the plant state based on progress
-                const states = ["pot", "sprout1", "sprout2", "flower1", "flower2", "flower3"]
-                const idx = (totalWater / waterGoal) * states.length;
+                const states = ["pot", "sprout1", "sprout2", "S1_flower1", "S1_flower2", "S1_flower3"]
+                let idx = (newWater / waterGoal) * states.length - 1;
+                idx = Math.min(Math.max(0, idx), states.length - 1); // clippppp
                 const newStage = states[Math.floor(idx)];
+                // console.log(`idx: ${idx} Math.floor(idx): ${Math.floor(idx)} newStage: ${newStage}`)
 
                 chrome.storage.local.set({ plantStage: newStage }, () => {
                     console.log("Plant state updated to:", newStage);
                 });
 
-                sendResponse({ status: "success", totalWater, newStage });
+                sendResponse({ status: "success" });
             });
         });
         return true; // Keep the messaging channel open for async response
