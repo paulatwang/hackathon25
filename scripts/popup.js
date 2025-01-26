@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (isPlantSelected) {
             // Change button color to red
+            selectPlantButton.textContent = 'Selected';
             this.style.backgroundColor = "red";
             this.style.color = "white"; // Optional: change text color for better contrast
 
@@ -58,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 500); // Duration of the pulse animation (in ms)
         } else {
             // Reset button color
+            selectPlantButton.textContent = 'Select Seed';
             this.style.backgroundColor = "#FFD700"; // or your original color
             this.style.color = "black"; // Reset text color
 
@@ -71,6 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
+        const sound = document.getElementById('splashSound');
+        sound.currentTime = 0; // Rewind to start
+        sound.play(); // Play sound
         // Hide the main container
         document.getElementById("mainContainer").style.display = "none";
 
