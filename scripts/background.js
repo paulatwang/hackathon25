@@ -62,9 +62,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             chrome.storage.local.set({ totalWater: newWater }, () => {
                 // Update the plant state based on progress
                 const states = ["pot", "sprout1", "sprout2", "S1_flower1", "S1_flower2", "S1_flower3"]
-                let idx = (newWater / waterGoal) * states.length - 1;
-                idx = Math.min(Math.max(0, idx), states.length - 1); // clippppp
-                const newStage = states[Math.floor(idx)];
+                const idx = (newWater / waterGoal) * (states.length - 1);
+                const newStage = states[Math.ceil(idx)];
                 // console.log(`idx: ${idx} Math.floor(idx): ${Math.floor(idx)} newStage: ${newStage}`)
 
                 chrome.storage.local.set({ plantStage: newStage }, () => {

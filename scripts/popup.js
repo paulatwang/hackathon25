@@ -163,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const currentTime = Date.now();
                 const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
 
-
                 if (remainingTime > 1) {
                     const minutesRemaining = Math.ceil(remainingTime / 60000);
                     document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
@@ -175,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
         chrome.storage.local.get(["totalWater", "waterGoal"], (data) => {
             const totalWater = data.totalWater;
             const waterGoal = data.waterGoal;
-            const progress = Math.floor(totalWater / waterGoal * 100);
+            const progress = Math.floor((totalWater / waterGoal) * 100);
             document.getElementById("totalWaterDrank").textContent = `${totalWater}`;
             document.getElementById("waterGoal").textContent = `You are ${progress}% of the way to your ${waterGoal}ml goal!`;
         });
