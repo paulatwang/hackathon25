@@ -128,48 +128,52 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Response from background:", response);
         });
     });
-});
 
-// Event listener for the Go Back button in the popup
-document.getElementById("wateringPopup").addEventListener("click", function (event) {
-    if (event.target.id === "goBack") {
-        // Show the main container again
-        document.getElementById("mainContainer").style.display = "block";
-        // Hide the watering popup
-        document.getElementById("wateringPopup").style.display = "none";
-    }
-});
+    // Event listener for the Go Back button in the popup
+    document.getElementById("wateringPopup").addEventListener("click", function (event) {
+        if (event.target.id === "goBack") {
+            // Show the main container again
+            document.getElementById("mainContainer").style.display = "block";
+            // Hide the watering popup
+            document.getElementById("wateringPopup").style.display = "none";
+        }
+    });
 
-// Event listener for the Quit Session button in the popup
-document.getElementById("wateringPopup").addEventListener("click", function (event) {
-    if (event.target.id === "quitSessionButton") {
-        window.close();
-    }
-});
+    // Event listener for the Quit Session button in the popup
+    document.getElementById("wateringPopup").addEventListener("click", function (event) {
+        if (event.target.id === "quitSessionButton") {
+            window.close();
+        }
+    });
 
-checkActiveSession();
+});
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
+    chrome.storage.local.get(["currentScreen"], function (result) {
+        const currentScreen = result.currentScreen || "mainContainer";
 
-    document.querySelectorAll(".container").forEach(container => {
-        container.style.display = "none";
-    });
+        document.querySelectorAll(".container").forEach(container => {
+            container.style.display = "none";
+        });
 
-    document.getElementById(currentScreen).style.display = "block";
+        document.getElementById(currentScreen).style.display = "block";
 
-    document.getElementById("startWatering").addEventListener("click", function () {
+        document.getElementById("startWatering").addEventListener("click", function () {
 
-        localStorage.setItem("currentScreen", "wateringPopup");
-        document.getElementById("mainContainer").style.display = "none";
-        document.getElementById("wateringPopup").style.display = "block";
-    });
+            chrome.storage.local.set({ currentScreen: "wateringPopup" }, function () {
+                document.getElementById("mainContainer").style.display = "none";
+                document.getElementById("wateringPopup").style.display = "block";
+            });
+        });
 
 
-    document.getElementById("quitSessionButton").addEventListener("click", function () {
+        document.getElementById("quitSessionButton").addEventListener("click", function () {
+            chrome.storage.local.set({ currentScreen: "mainContainer" }, function () {
 
-        localStorage.setItem("currentScreen", "mainContainer");
-        document.getElementById("mainContainer").style.display = "block";
+                document.getElementById("mainContainer").style.display = "block";
+                document.getElementById("wateringPopup").style.display = "none";
+            });
+        });
     });
 });
