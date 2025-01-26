@@ -26,6 +26,7 @@ function onload() {
         let plantStage = result.plantStage;
         console.log("Selected image: " + plantType);
 
+
         // Add the plant class and type to the plant element
         plant.classList.add(plantType); // e.g., plant1, plant2, etc.
         plant.classList.add(plantStage); // e.g., pot, sprout1, sprout2, etc.
@@ -65,6 +66,58 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
 });
 
+window.addEventListener("load", onload);
+
+function displayModal() {
+    const modalStyle = document.createElement("style");
+    modalStyle.innerHTML = `
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .modal-header {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }`;
+    const modalDiv = document.createElement("div");
+    modalDiv.classList.add("modal");
+    `<div class="modal-header">Enter Your Input</div>
+      <input type="text" id="userInput" placeholder="Type something..." style="width: 100%; padding: 10px; margin-bottom: 10px;">
+      <div class="modal-footer">
+        <button id="closeModalBtn">Submit</button>
+      </div>`
+    document.body.appendChild(reminderBox);
+
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    openModalBtn.addEventListener('click', () => {
+        modalOverlay.style.display = 'flex';
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        const userInput = document.getElementById('userInput').value;
+        console.log('User Input:', userInput); // Do something with the input
+        modalOverlay.style.display = 'none';
+    });
+}
 // Listen for messages from the popup script
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(
