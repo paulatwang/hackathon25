@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
         // Hide the main container
@@ -108,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
         }
 
+        
         const freq = parseInt(document.getElementById("minutesInput").value);
         const goal = parseInt(document.getElementById("mLInput").value);
 
@@ -116,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+    
         // Send message to background.js
         chrome.runtime.sendMessage({
             action: "setUserInput",
@@ -126,8 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log("Response from background:", response);
         });
-    });
-
+});
 
     // Event listener for the Quit Session button in the popup
 document.getElementById("wateringPopup").addEventListener("click", function (event) {
@@ -136,6 +138,31 @@ document.getElementById("wateringPopup").addEventListener("click", function (eve
     }
 });
 
+    checkActiveSession();
 
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    const currentScreen = localStorage.getItem("currentScreen") || "mainContainer"; 
+
+    document.querySelectorAll(".container").forEach(container => {
+        container.style.display = "none"; 
+    });
+    
+    document.getElementById(currentScreen).style.display = "block";
+ 
+    document.getElementById("startWatering").addEventListener("click", function () {
+   
+        localStorage.setItem("currentScreen", "wateringPopup");
+        document.getElementById("mainContainer").style.display = "none";
+        document.getElementById("wateringPopup").style.display = "block";
+    });
+
+ 
+    document.getElementById("backButton").addEventListener("click", function () {
+      
+    localStorage.setItem("currentScreen", "mainContainer");
+        document.getElementById("mainContainer").style.display = "block";
+    });
+});
