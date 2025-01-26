@@ -132,11 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event listener for the Quit Session button in the popup
 document.getElementById("wateringPopup").addEventListener("click", function (event) {
     if (event.target.id === "quitSessionButton") {
-        // Show the main container again
-        document.getElementById("mainContainer").style.display = "block";
-
-        // Hide the watering popup
-        document.getElementById("wateringPopup").style.display = "none";
+        window.close();
     }
 });
 
