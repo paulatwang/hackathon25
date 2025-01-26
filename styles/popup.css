@@ -1,12 +1,7 @@
-@font-face {
-    font-family: 'ChiFont';
-    src: url('public/chi.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+
 
 body {
-    font-family: 'ChiFont', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #FFF6DE;
     height: 100%;
     margin: 0;
@@ -27,9 +22,11 @@ body {
 
 .title {
     font-family: 'Roboto', sans-serif;
-    font-size: 48px;
+    font-size: 60px;
     margin-bottom: 1rem;
     color: #4D92BC;
+    text-align: center;
+    margin-left: 50px;
 }
 
 .carousel {
@@ -100,6 +97,7 @@ body {
     padding: 8px;
     border: 2px solid #000;
     border-radius: 8px;
+    margin-left: 75px;
 }
 
 .timer-container, .water.container {
@@ -280,5 +278,7 @@ input[type="number"] {
   .container {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 0px;
   }
+
+  

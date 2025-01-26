@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // Array of plant images
@@ -67,10 +68,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
         // Hide the main container
         document.getElementById("mainContainer").style.display = "none";
+
 
         // Show the watering popup
         document.getElementById("wateringPopup").style.display = "block";
@@ -88,3 +91,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
