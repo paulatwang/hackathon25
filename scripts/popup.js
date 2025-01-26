@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
     // Array of plant images
@@ -40,10 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const plantImage = document.getElementById("plantImage");
 
+
         if (isPlantSelected) {
             // Change button color to red
             this.style.backgroundColor = "red";
             this.style.color = "white"; // Optional: change text color for better contrast
+
 
             // Disable carousel buttons
             document.getElementById("prevButton").disabled = true;
@@ -123,3 +124,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
