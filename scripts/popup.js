@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
     // Array of plant images
@@ -40,10 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const plantImage = document.getElementById("plantImage");
 
+
         if (isPlantSelected) {
             // Change button color to red
             this.style.backgroundColor = "red";
             this.style.color = "white"; // Optional: change text color for better contrast
+
 
             // Disable carousel buttons
             document.getElementById("prevButton").disabled = true;
@@ -68,16 +69,47 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
         // Hide the main container
         document.getElementById("mainContainer").style.display = "none";
 
-
         // Show the watering popup
         document.getElementById("wateringPopup").style.display = "block";
+
+        // Get plant type by seed image index
+        let userType = "plant1";
+        switch (currentIndex) {
+            case 0: userType = "plant1";
+                break;
+            case 1: userType = "plant2";
+                break;
+            case 2: userType = "plant3";
+                break;
+            case 3: userType = "plant4";
+                break;
+        }
+
+        const freq = parseInt(document.getElementById("minutesInput").value);
+        const goal = parseInt(document.getElementById("mLInput").value);
+
+        if (isNaN(freq) || isNaN(goal)) {
+            console.error("Invalid input: Please enter numeric values for frequency and water goal.");
+            return;
+        }
+
+        // Send message to background.js
+        chrome.runtime.sendMessage({
+            action: "setUserInput",
+            frequency: freq,
+            waterGoal: goal,
+            plantType: userType
+        }, function (response) {
+
+            console.log("Response from background:", response);
+        });
     });
+
 
     // Event listener for the Back button in the popup
     document.getElementById("wateringPopup").addEventListener("click", function (event) {
@@ -89,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("wateringPopup").style.display = "none";
         }
     });
+
 
 });
 
