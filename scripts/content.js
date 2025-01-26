@@ -9,7 +9,7 @@ function setPosition(element, ratio = 0.01) {
     const rightMargin = screenWidth * ratio; // right ratio
     const bottomMargin = screenHeight * ratio; // bottom ratio
 
-    element.style.position = 'fixed';
+    element.style.position = "fixed";
     element.style.right = `${rightMargin}px`;
     element.style.bottom = `${bottomMargin}px`;
 }
@@ -24,7 +24,6 @@ function updatePlant() {
         let plantStage = result.plantStage;
         console.log("Selected image: " + plantType);
 
-
         // Add the plant class and type to the plant element
         plant.classList.add(plantType); // e.g., plant1, plant2, etc.
         plant.classList.add(plantStage); // e.g., pot, sprout1, sprout2, etc.
@@ -32,7 +31,6 @@ function updatePlant() {
         const imageUrl = chrome.runtime.getURL("images/" + plantStage + ".png");
         console.log("Image Path: ", imageUrl);
         plant.style.backgroundImage = `url(${imageUrl})`;
-
     });
 }
 
@@ -40,9 +38,8 @@ window.addEventListener("load", () => {
     const plant = document.createElement("div");
     plant.classList.add("plant");
     document.body.appendChild(plant);
-    updatePlant()
+    updatePlant();
 });
-
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "timerSetOff") {
@@ -192,7 +189,9 @@ function displayModal() {
         const water = parseInt(userInput);
 
         if (isNaN(water)) {
-            console.error("Invalid input: Please enter numeric values for amount of water.");
+            console.error(
+                "Invalid input: Please enter numeric values for amount of water."
+            );
             return;
         }
 
@@ -274,7 +273,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //     });
 // }
 
-
 // if (request.action === "aggressiveReminder") {
 //     // Handle aggressive mode behavior
 //     triggerAggressiveMode();
@@ -295,13 +293,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //     }
 // }
 
-
-
-
 // WATER CONSUMPTION
 // let totalWater = 0;
 
-// // Initializes chrome.storage totalWater 
+// // Initializes chrome.storage totalWater
 // document.addEventListener("DOMContentLoaded", function () {
 //     chrome.storage.local.get(["totalWater"], function (result) {
 //         // if total is NaN, initializes to 0
@@ -329,4 +324,5 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //         document.getElementById("waterIn").value = ""; // clear input value
 //     }
 // });
+
 // TODO: ADD SKIP BUTTON
