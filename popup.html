@@ -108,10 +108,28 @@
         <div class="hydration-info">
             <p>Time Remaining: <span id="hydrationReminder">0</span> min</p>
             <p>Total Water Drank: <span id="hydrationData.totalWaterDrank">0</span> ml</p>
+            <button class="timer-button" id="backButton">Go Back</button>
         </div>
-        <button class="timer-button" id="backButton">Go Back</button>
+
+    <script>
+        function updateTimer() {
+            const timerDisplay = document.getElementById('hydrationReminder');
+            chrome.storage.local.get(['frequency'], (data) => {
+                if (data.frequency) {
+                    timerDisplay.textContent = data.frequency;
+                }
+            });
+        }
+        updateTimer();
+
+        chrome.storage.onChanged.addListener((changes)=> {
+            if (changes.frequency) {
+                updateTimer();
+            }
+        });
         
-    </div>
+        </script>
+   
 
     <script>
         // Event listener for the Start Watering button
