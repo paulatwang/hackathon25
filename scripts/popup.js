@@ -179,10 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-localStorage.setItem("currentScreen", "mainContainer");
-document.getElementById("mainContainer").style.display = "block";
-        });
-    });
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -198,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 document.getElementById("timeRemaining").textContent = `<1`;
             }
-        });
+        }
+    });
 });
 
