@@ -54,6 +54,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         reminderBox.innerHTML = `
             <h3>I'm Parched!</h3>
             <p>Hydrate yourself to hydrate me!</p>
+            <input type="text" id="waterAmount" placeholder="Add water amount"
         `;
 
         document.body.appendChild(reminderBox);
