@@ -16,7 +16,7 @@ body {
 
 .container {
     background-color: #FFF6DE;
-    padding: 2rem;
+    /* padding: 2rem; */
     border-radius: 8px;
     width: 400px;
     text-align: center;
@@ -261,7 +261,7 @@ input[type="number"] {
 .btn {
     --btn-color: rgb(40, 51, 169);
     --btn-bg: rgb(96, 153, 238);
-    margin: 40px;
+    /* margin: 40px; */
     position: relative;
     display: inline-flex;
     align-items: center;

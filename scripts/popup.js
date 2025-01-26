@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     // Array of plant images
     const plantImages = [
         'images/seed1.png', // Image 1
@@ -38,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
         currentIndex = (currentIndex - 1 + plantImages.length) % plantImages.length; // Decrement index and wrap around
         updatePlantImage();
     });
-
-
 
     // Event listener for the Select Plant button
     let isPlantSelected = false;
@@ -85,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("minutesInput").addEventListener("input", checkStartWateringButton);
     document.getElementById("mLInput").addEventListener("input", checkStartWateringButton);
 
-
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
         // Hide the main container
@@ -108,7 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-
         const freq = parseInt(document.getElementById("minutesInput").value);
         const goal = parseInt(document.getElementById("mLInput").value);
 
@@ -117,8 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-
-
         // Send message to background.js
         chrome.runtime.sendMessage({
             action: "setUserInput",
@@ -126,31 +119,24 @@ document.addEventListener("DOMContentLoaded", function () {
             waterGoal: goal,
             plantType: userType
         }, function (response) {
-
             console.log("Response from background:", response);
         });
-    });
-
-    // Event listener for the Go Back button in the popup
-    document.getElementById("wateringPopup").addEventListener("click", function (event) {
-        if (event.target.id === "goBack") {
-            // Show the main container again
-            document.getElementById("mainContainer").style.display = "block";
-            // Hide the watering popup
-            document.getElementById("wateringPopup").style.display = "none";
-        }
     });
 
     // Event listener for the Quit Session button in the popup
     document.getElementById("wateringPopup").addEventListener("click", function (event) {
         if (event.target.id === "quitSessionButton") {
+            chrome.storage.local.set({ totalWater: 0, waterGoal: 0, plantStage: "pot" }, () => { });
             window.close();
         }
     });
 
-});
-
-document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("quitSessionButton").addEventListener("click", function () {
+        chrome.storage.local.set({ currentScreen: "mainContainer" }, function () {
+            document.getElementById("mainContainer").style.display = "block";
+            document.getElementById("wateringPopup").style.display = "none";
+        });
+    });
 
     chrome.storage.local.get(["currentScreen"], function (result) {
         const currentScreen = result.currentScreen || "mainContainer";
@@ -168,33 +154,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("wateringPopup").style.display = "block";
             });
         });
-
-
-        document.getElementById("quitSessionButton").addEventListener("click", function () {
-            chrome.storage.local.set({ currentScreen: "mainContainer" }, function () {
-
-                document.getElementById("mainContainer").style.display = "block";
-                document.getElementById("wateringPopup").style.display = "none";
-            });
-        });
     });
-});
 
+    async function updateMetrics() {
+        try {
+            const alarm = await chrome.alarms.get("hydrationReminder");
+            if (alarm) {
+                const currentTime = Date.now();
+                const remainingTime = alarm.scheduledTime - currentTime;
 
-document.addEventListener("DOMContentLoaded", function () {
-    chrome.alarms.get("hydrationReminder", function (alarm) {
-        if (alarm) {
-            const currentTime = Date.now();
-            const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
-
-
-            if (remainingTime > 1) {
-                const minutesRemaining = Math.floor(remainingTime / 60000);
-                document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
-            } else {
-                document.getElementById("timeRemaining").textContent = `<1`;
+                const timeElement = document.getElementById("timeRemaining");
+                if (remainingTime > 1) {
+                    const minutesRemaining = Math.ceil(remainingTime / 60000);
+                    timeElement.textContent = `${minutesRemaining}`;
+                } else {
+                    timeElement.textContent = `<1`;
+                }
             }
+            const { totalWater, waterGoal } = await chrome.storage.local.get(["totalWater", "waterGoal"]);
+            const progress = Math.floor((totalWater / waterGoal) * 100);
+
+            document.getElementById("totalWaterDrank").textContent = `${totalWater}`;
+            document.getElementById("waterGoal").textContent =
+                `You are ${progress}% of the way to your ${waterGoal}ml goal!`;
+        } catch (error) {
+            console.error("Error updating metrics:", error);
         }
-    });
+    }
+
+    updateMetrics();
+    setInterval(updateMetrics, 5000); // poll at 5 sec intervals
 });
 
