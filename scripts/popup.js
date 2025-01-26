@@ -156,30 +156,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // first fetch
-    function updateMetrics() {
-        chrome.alarms.get("hydrationReminder", function (alarm) {
+    async function updateMetrics() {
+        try {
+            const alarm = await chrome.alarms.get("hydrationReminder");
             if (alarm) {
                 const currentTime = Date.now();
-                const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
+                const remainingTime = alarm.scheduledTime - currentTime;
 
+                const timeElement = document.getElementById("timeRemaining");
                 if (remainingTime > 1) {
                     const minutesRemaining = Math.ceil(remainingTime / 60000);
-                    document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
+                    timeElement.textContent = `${minutesRemaining}`;
                 } else {
-                    document.getElementById("timeRemaining").textContent = `<1`;
+                    timeElement.textContent = `<1`;
                 }
             }
-        });
-        chrome.storage.local.get(["totalWater", "waterGoal"], (data) => {
-            const totalWater = data.totalWater;
-            const waterGoal = data.waterGoal;
+            const { totalWater, waterGoal } = await chrome.storage.local.get(["totalWater", "waterGoal"]);
             const progress = Math.floor((totalWater / waterGoal) * 100);
+
             document.getElementById("totalWaterDrank").textContent = `${totalWater}`;
-            document.getElementById("waterGoal").textContent = `You are ${progress}% of the way to your ${waterGoal}ml goal!`;
-        });
+            document.getElementById("waterGoal").textContent =
+                `You are ${progress}% of the way to your ${waterGoal}ml goal!`;
+        } catch (error) {
+            console.error("Error updating metrics:", error);
+        }
     }
+
     updateMetrics();
-    setInterval(updateMetrics, 5000); // poll every few seconds bc hackathon
+    setInterval(updateMetrics, 5000); // poll at 5 sec intervals
 });
 
