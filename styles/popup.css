@@ -3,7 +3,8 @@ html {
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Chewy', cursive;
+    font-size: 20px;
     background-color: #FFF6DE;
     height: 100%;
     margin: 0;
@@ -19,11 +20,10 @@ body {
     border-radius: 8px;
     width: 400px;
     text-align: center;
-    box-shadow: 6px 6px 0 2px rgba(0, 0, 0, 0.3);
 }
 
 .title {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Chewy', cursive;
     font-size: 60px;
     margin-bottom: 1rem;
     color: #4D92BC;
@@ -33,7 +33,7 @@ body {
 
 .carousel {
     position: relative;
-    margin: 1.5rem auto;
+    margin: 0rem auto;
     width: 200px;
     height: 200px;
 }
@@ -75,7 +75,7 @@ body {
     /* Maintain aspect ratio */
     margin-top: 2px;
     /* Add horizontal spacing between the image and buttons */
-    margin-left: -70px;
+
 }
 
 .prev {
@@ -89,7 +89,7 @@ body {
 .input-container {
     margin: 0 auto;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 300px;
 
 }
@@ -105,7 +105,8 @@ body {
     padding: 8px;
     border: 2px solid #000;
     border-radius: 8px;
-    margin-left: 75px;
+    margin-top: 10px;
+    margin-left: 95px;
 }
 
 .timer-container,
@@ -168,7 +169,7 @@ input[type="number"] {
     margin-top: 10px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #FFD700;
+    background-color: #4CAF50;
     border: 2px solid #000;
     border-radius: 8px;
     cursor: pointer;
@@ -176,20 +177,21 @@ input[type="number"] {
     margin-right: 10px;
 }
 
-/*.select-plant {
+.select-plant {
     width: 120px;
     margin-top: -10px;
     padding: 5px 10px;
     font-size: 16px;
-    background-color: #00ef8f;
+    background-color: rgb(252 211 77);
     border: 2px solid #000;
     border-radius: 8px;
     cursor: pointer;
     align-items: center;
     margin-right: 0px;
-}*/
+}
+
 .select-button:hover {
-    background-color: #E6C200;
+    background-color: #4CAF50;
 }
 
 @keyframes pulse {
@@ -213,9 +215,68 @@ input[type="number"] {
     /* Duration of the pulse animation */
 }
 
-.btn {
+.btn2 {
     --btn-color: rgb(124 45 18);
     --btn-bg: rgb(252 211 77);
+    margin: 20px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
+    padding: 14px 22px;
+    border-radius: 8px;
+    border: 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: system-ui;
+    border: 2px solid var(--btn-color);
+    transition: 100ms ease;
+    box-shadow: 5px 5px 0 0 var(--btn-color);
+}
+
+.btn2--secondary {
+    --btn-color: #444;
+    --btn-bg: #fafafa;
+}
+
+.btn2 svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.btn2:hover {
+    box-shadow: 2px 2px 0 0 var(--btn-color);
+}
+
+.btn2:active {
+    transition: 50ms ease;
+    box-shadow: 0 0 0 0 var(--btn-color);
+}
+
+.btn2:focus-visible {
+    outline: 0;
+    --btn-color: #002cc8;
+}
+
+.btn2:focus-visible::after {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 12px);
+    transform: translateX(-50%);
+    content: "\21E7";
+    animation: float .5s ease-in-out infinite;
+}
+
+
+.btn {
+    --btn-color: rgb(40, 51, 169);
+    --btn-bg: rgb(96, 153, 238);
+    margin: 40px;
     position: relative;
     display: inline-flex;
     align-items: center;

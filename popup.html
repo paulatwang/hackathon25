@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <title>Plant Picker</title>
     <link rel="stylesheet" href="styles/popup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         .carousel-button {
             background: none;
@@ -41,8 +42,11 @@
             </button>
 
             <!-- Main Plant Image -->
-
-            <img id="plantImage" src="images/seed1.png" alt="seed" class="plant-image" style="width: 350px;">
+            
+                <img id="plantImage" src="images/seed1.png" alt="seed" class="plant-image">
+           
+            
+            
 
             <!-- Next Button -->
             <button class="carousel-button next" id="nextButton">
@@ -52,7 +56,7 @@
 
         <!-- Select Button -->
         <div class="input-container">
-            <button class="btn" id="selectPlantButton">Select Plant</button>
+            <button class="btn2" id="selectPlantButton">Select Seed</button>
 
             <!-- Timer Section -->
             <div class="input-group">
@@ -71,18 +75,20 @@
             </div>
             <!-- Select Button -->
             <button class="btn" id="startWatering">Start Watering</button>
+            <audio id="splashSound" src="water-splash.mp3"></audio>
         </div>
     </div>
 
     <!-- New Popup for Start Watering -->
     <div class="container" id="wateringPopup" style="display: none;">
-        <div class="title">Watering in Progress</div>
+        <div class="title">Watering In Progress</div>
         <p>Your watering session has begun. Make sure to monitor your plants!</p>
         <div class="hydration-info">
             <p>Time Remaining: <span id="hydrationReminder">0</span> min</p>
             <p>Total Water Drank: <span id="hydrationData.totalWaterDrank">0</span> ml</p>
         </div>
-        <button class="btn" id="backButton">Go Back</button>
+        
+        <button class="btn2" id="backButton">Go Back</button>
 
     </div>
 
