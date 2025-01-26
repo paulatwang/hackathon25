@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
         plantImageElement.alt = `Plant ${currentIndex + 1}`;
     }
 
+    // Function to check if the Start Watering button should be enabled
+    function checkStartWateringButton() {
+        const minutesInput = document.getElementById("minutesInput").value;
+        const mLInput = document.getElementById("mLInput").value;
+        const startWateringButton = document.getElementById("startWatering");
+
+        // Enable button only if a plant is selected and both inputs have values
+        startWateringButton.disabled = !(isPlantSelected && minutesInput && mLInput);
+    }
+
     // Event listener for the Next button
     document.getElementById("nextButton").addEventListener("click", function () {
         currentIndex = (currentIndex + 1) % plantImages.length; // Increment index and wrap around
@@ -68,14 +78,18 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("prevButton").disabled = false;
             document.getElementById("nextButton").disabled = false;
         }
+        checkStartWateringButton();
     });
+
+    // Event listeners for input fields
+    document.getElementById("minutesInput").addEventListener("input", checkStartWateringButton);
+    document.getElementById("mLInput").addEventListener("input", checkStartWateringButton);
+
+
 
 
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
-        // const sound = document.getElementById('splashSound');
-        // sound.currentTime = 0; // Rewind to start
-        // sound.play(); // Play sound
         // Hide the main container
         document.getElementById("mainContainer").style.display = "none";
 
@@ -95,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
         }
 
+
         const freq = parseInt(document.getElementById("minutesInput").value);
         const goal = parseInt(document.getElementById("mLInput").value);
 
@@ -102,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Invalid input: Please enter numeric values for frequency and water goal.");
             return;
         }
+
 
         // Send message to background.js
         chrome.runtime.sendMessage({
@@ -115,18 +131,38 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
-    // Event listener for the Back button in the popup
+    // Event listener for the Quit Session button in the popup
     document.getElementById("wateringPopup").addEventListener("click", function (event) {
-        if (event.target.id === "backButton") {
-            // Show the main container again
-            document.getElementById("mainContainer").style.display = "block";
-
-            // Hide the watering popup
-            document.getElementById("wateringPopup").style.display = "none";
+        if (event.target.id === "quitSessionButton") {
+            window.close();
         }
     });
 
+    checkActiveSession();
 
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
+
+    document.querySelectorAll(".container").forEach(container => {
+        container.style.display = "none";
+    });
+
+    document.getElementById(currentScreen).style.display = "block";
+
+    document.getElementById("startWatering").addEventListener("click", function () {
+
+        localStorage.setItem("currentScreen", "wateringPopup");
+        document.getElementById("mainContainer").style.display = "none";
+        document.getElementById("wateringPopup").style.display = "block";
+    });
+
+
+    document.getElementById("backButton").addEventListener("click", function () {
+
+        localStorage.setItem("currentScreen", "mainContainer");
+        document.getElementById("mainContainer").style.display = "block";
+    });
+});
