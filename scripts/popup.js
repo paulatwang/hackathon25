@@ -73,9 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
-        const sound = document.getElementById('splashSound');
-        sound.currentTime = 0; // Rewind to start
-        sound.play(); // Play sound
+        // const sound = document.getElementById('splashSound');
+        // sound.currentTime = 0; // Rewind to start
+        // sound.play(); // Play sound
         // Hide the main container
         document.getElementById("mainContainer").style.display = "none";
 
