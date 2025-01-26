@@ -148,9 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
+});
 
-        const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
+document.addEventListener("DOMContentLoaded", function () {
+
+    chrome.storage.local.get(["currentScreen"], function (result) {
+        const currentScreen = result.currentScreen || "mainContainer";
 
         document.querySelectorAll(".container").forEach(container => {
             container.style.display = "none";
@@ -160,33 +163,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById("startWatering").addEventListener("click", function () {
 
-            localStorage.setItem("currentScreen", "wateringPopup");
-            document.getElementById("mainContainer").style.display = "none";
-            document.getElementById("wateringPopup").style.display = "block";
+            chrome.storage.local.set({ currentScreen: "wateringPopup" }, function () {
+                document.getElementById("mainContainer").style.display = "none";
+                document.getElementById("wateringPopup").style.display = "block";
+            });
         });
 
 
         document.getElementById("quitSessionButton").addEventListener("click", function () {
+            chrome.storage.local.set({ currentScreen: "mainContainer" }, function () {
 
-            localStorage.setItem("currentScreen", "mainContainer");
-            document.getElementById("mainContainer").style.display = "block";
+                document.getElementById("mainContainer").style.display = "block";
+                document.getElementById("wateringPopup").style.display = "none";
+            });
+        });
+    });
+});
+localStorage.setItem("currentScreen", "mainContainer");
+document.getElementById("mainContainer").style.display = "block";
         });
     });
 
 
-    document.addEventListener("DOMContentLoaded", function () {
-        chrome.alarms.get("hydrationReminder", function (alarm) {
-            if (alarm) {
-                const currentTime = Date.now();
-                const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
+document.addEventListener("DOMContentLoaded", function () {
+    chrome.alarms.get("hydrationReminder", function (alarm) {
+        if (alarm) {
+            const currentTime = Date.now();
+            const remainingTime = alarm.scheduledTime - currentTime; // Time in milliseconds
 
 
-                if (remainingTime > 1) {
-                    const minutesRemaining = Math.floor(remainingTime / 60000);
-                    document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
-                } else {
-                    document.getElementById("timeRemaining").textContent = `<1`;
-                }
-            });
-    });
+            if (remainingTime > 1) {
+                const minutesRemaining = Math.floor(remainingTime / 60000);
+                document.getElementById("timeRemaining").textContent = `${minutesRemaining}`;
+            } else {
+                document.getElementById("timeRemaining").textContent = `<1`;
+            }
+        });
+});
 
