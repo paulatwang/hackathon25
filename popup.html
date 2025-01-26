@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/popup.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
@@ -32,7 +33,8 @@
 
 <body>
     <div class="container" id="mainContainer">
-        <div class="title">HydroBud</div>
+
+        <div class="title" style="padding-top: 40px;">HydroBud</div>
 
         <!-- Carousel Section -->
         <div class="carousel">
@@ -73,8 +75,10 @@
                 <!--    <button class="water-button" id="waterGoalDay">Set Water Goal</button> -->
                 <span>mL</span>
             </div>
+            <br>
+            <div id="errorMessage" style="color: red; display: none;"></div>
             <!-- Select Button -->
-            <button class="btn" id="startWatering">Start Watering</button>
+            <button class="btn" id="startWatering" disabled>Start Watering</button>
             <audio id="splashSound" src="water-splash.mp3"></audio>
         </div>
     </div>
@@ -88,7 +92,7 @@
             <p>Total Water Drank: <span id="hydrationData.totalWaterDrank">0</span> ml</p>
         </div>
         
-        <button class="btn2" id="backButton">Go Back</button>
+        <button class="btn2" id="quitSessionButton">End Session</button>
 
     </div>
 
