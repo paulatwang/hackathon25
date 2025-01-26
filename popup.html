@@ -10,19 +10,23 @@
             border: none;
             padding: 0;
             cursor: pointer;
-            outline: none; /* Removes focus outline */
+            outline: none;
+            /* Removes focus outline */
         }
-    
+
         .carousel-button img {
             width: 100px;
             height: 100px;
         }
-    
+
         .carousel-button:focus {
-            outline: none; /* Ensures no outline appears on focus */
+            outline: none;
+            /* Ensures no outline appears on focus */
         }
     </style>
-    
+
+    <script src="scripts/popup.js"></script>
+
 </head>
 
 <body>
@@ -35,38 +39,35 @@
             <button class="carousel-button prev" id="prevButton">
                 <img src="images/Left_Arrow.png" alt="Previous">
             </button>
-            
+
             <!-- Main Plant Image -->
-           
+
             <img id="plantImage" src="images/seed1.png" alt="seed" class="plant-image" style="width: 350px;">
-        
+
             <!-- Next Button -->
             <button class="carousel-button next" id="nextButton">
                 <img src="images/Right_Arrow.png" alt="Next">
             </button>
         </div>
 
-       
-
         <!-- Select Button -->
-         <div class="input-container">
-        <button class="btn" id="selectPlantButton">Select Plant</button>
+        <div class="input-container">
+            <button class="btn" id="selectPlantButton">Select Plant</button>
 
-       
-            
-        <!-- Timer Section -->
-         <div class="input-group">
-            <input type="number" id="minutesInput" placeholder="Minutes" min="1">
-          <!--   <button class="timer-button" id="startTimerButton">Set Interval Time</button> -->
-       
-        <span>min</span>       
- </div>
+            <!-- Timer Section -->
+            <div class="input-group">
+                <input type="number" id="minutesInput" placeholder="Minutes" min="1">
+                <!--   <button class="timer-button" id="startTimerButton">Set Interval Time</button> -->
 
-        <!-- Water goal section -->
-        <div class="input-group">
+                <span>min</span>
+            </div>
+
+            <!-- Water goal section -->
+            <div class="input-group">
+
                 <input type="number" id="mLInput" placeholder="Enter Amount">
-             <!--    <button class="water-button" id="waterGoalDay">Set Water Goal</button> -->
-           <span>mL</span>
+                <!--    <button class="water-button" id="waterGoalDay">Set Water Goal</button> -->
+                <span>mL</span>
             </div>
             <!-- Select Button -->
             <button class="btn" id="startWatering">Start Watering</button>
@@ -82,7 +83,7 @@
             <p>Total Water Drank: <span id="hydrationData.totalWaterDrank">0</span> ml</p>
         </div>
         <button class="btn" id="backButton">Go Back</button>
-        
+
     </div>
 
 </body>
