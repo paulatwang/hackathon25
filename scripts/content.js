@@ -9,7 +9,7 @@ function setPosition(element, ratio = 0.1) {
     const rightMargin = screenWidth * ratio; // e.g., 10% of the screen width
     const bottomMargin = screenHeight * ratio;
 
-    element.style.position = 'absolute';
+    element.style.position = 'fixed';
     element.style.right = `${rightMargin}px`;
     element.style.bottom = `${bottomMargin}px`;
 }
