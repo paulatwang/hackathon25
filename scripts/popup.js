@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    document.getElementById("backButton").addEventListener("click", function () {
+    document.getElementById("quitSessionButton").addEventListener("click", function () {
 
         localStorage.setItem("currentScreen", "mainContainer");
         document.getElementById("mainContainer").style.display = "block";
