@@ -86,8 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("mLInput").addEventListener("input", checkStartWateringButton);
 
 
-
-
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
         // Hide the main container
@@ -130,15 +128,26 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Response from background:", response);
         });
     });
+});
 
-    // Event listener for the Quit Session button in the popup
-    document.getElementById("wateringPopup").addEventListener("click", function (event) {
-        if (event.target.id === "quitSessionButton") {
-            window.close();
-        }
-    });
+// Event listener for the Go Back button in the popup
+document.getElementById("wateringPopup").addEventListener("click", function (event) {
+    if (event.target.id === "goBack") {
+        // Show the main container again
+        document.getElementById("mainContainer").style.display = "block";
+        // Hide the watering popup
+        document.getElementById("wateringPopup").style.display = "none";
+    }
+});
 
-    checkActiveSession();
+// Event listener for the Quit Session button in the popup
+document.getElementById("wateringPopup").addEventListener("click", function (event) {
+    if (event.target.id === "quitSessionButton") {
+        window.close();
+    }
+});
+
+checkActiveSession();
 
 });
 
