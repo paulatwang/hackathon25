@@ -58,7 +58,11 @@ function displayModal() {
     // Create and append styles
     const modalStyle = document.createElement("style");
     modalStyle.innerHTML = `
+      .hydrobud-modal-overlay > * {
+        font-family: 'Chewy',cursive;
+      }
       .hydrobud-modal-overlay {
+        font-family: 'Chewy',cursive;
         display: flex;
         position: fixed;
         top: 0;
@@ -79,8 +83,7 @@ function displayModal() {
         text-align: center;
       }
       .hydrobud-modal-header {
-        color: #fff;
-        font-family: 'Chewy',cursive;
+        color: black !important;
         font-size: 18px;
         margin-bottom: 10px;
       }
@@ -95,6 +98,74 @@ function displayModal() {
       .hydrobud-modal-footer button:hover {
         background:rgb(10, 104, 205);
       }
+      .hydrobud-btn {
+        --btn-color: rgb(40, 51, 169);
+        --btn-bg: rgb(96, 153, 238);
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background-color: var(--btn-bg);
+        color: var(--btn-color);
+        padding: 14px 22px;
+        border-radius: 8px;
+        border: 0;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        font-family: system-ui;
+        border: 2px solid var(--btn-color);
+        transition: 100ms ease;
+        box-shadow: 5px 5px 0 0 var(--btn-color);
+    }
+
+    .hydrobud-btn--secondary {
+        --btn-color: #444;
+        --btn-bg: #fafafa;
+    }
+
+    .hydrobud-btn svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .hydrobud-btn:hover {
+        box-shadow: 2px 2px 0 0 var(--btn-color);
+    }
+
+    .hydrobud-btn:active {
+        transition: 50ms ease;
+        box-shadow: 0 0 0 0 var(--btn-color);
+    }
+
+    .hydrobud-btn:focus-visible {
+        outline: 0;
+        --btn-color: #002cc8;
+    }
+
+    .hydrobud-btn:focus-visible::after {
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 12px);
+        transform: translateX(-50%);
+        animation: float .5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateX(-50%) translatey(0px);
+        }
+
+        50% {
+            transform: translateX(-50%) translatey(-6px);
+        }
+
+        100% {
+            transform: translateX(-50%) translatey(0px);
+        }
+    }
     `;
     document.head.appendChild(modalStyle);
 
@@ -105,6 +176,7 @@ function displayModal() {
     const modalDiv = document.createElement("div");
     modalDiv.classList.add("hydrobud-modal");
     modalDiv.innerHTML = `
+      <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
       <div class="hydrobud-modal-header">I'm parched! Hydrate yourself to hydrate me! </div>
       <input type="text" id="userInput" placeholder="Enter amount of water" style="width: 80%; padding: 10px; margin-bottom: 10px;"><span>ml</span>
       <div class="hydrobud-modal-footer">

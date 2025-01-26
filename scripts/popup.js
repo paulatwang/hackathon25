@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     // Array of plant images
     const plantImages = [
         'images/seed1.png', // Image 1
@@ -38,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
         currentIndex = (currentIndex - 1 + plantImages.length) % plantImages.length; // Decrement index and wrap around
         updatePlantImage();
     });
-
-
 
     // Event listener for the Select Plant button
     let isPlantSelected = false;
@@ -85,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("minutesInput").addEventListener("input", checkStartWateringButton);
     document.getElementById("mLInput").addEventListener("input", checkStartWateringButton);
 
-
     // Event listener for the Start Watering button
     document.getElementById("startWatering").addEventListener("click", function () {
         // Hide the main container
@@ -107,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
         }
 
-
         const freq = parseInt(document.getElementById("minutesInput").value);
         const goal = parseInt(document.getElementById("mLInput").value);
 
@@ -115,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Invalid input: Please enter numeric values for frequency and water goal.");
             return;
         }
-
 
         // Send message to background.js
         chrome.runtime.sendMessage({
@@ -128,28 +122,23 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Response from background:", response);
         });
     });
-});
 
-// Event listener for the Go Back button in the popup
-document.getElementById("wateringPopup").addEventListener("click", function (event) {
-    if (event.target.id === "goBack") {
-        // Show the main container again
-        document.getElementById("mainContainer").style.display = "block";
-        // Hide the watering popup
-        document.getElementById("wateringPopup").style.display = "none";
-    }
-});
+    // Event listener for the Go Back button in the popup
+    document.getElementById("wateringPopup").addEventListener("click", function (event) {
+        if (event.target.id === "goBack") {
+            // Show the main container again
+            document.getElementById("mainContainer").style.display = "block";
+            // Hide the watering popup
+            document.getElementById("wateringPopup").style.display = "none";
+        }
+    });
 
-// Event listener for the Quit Session button in the popup
-document.getElementById("wateringPopup").addEventListener("click", function (event) {
-    if (event.target.id === "quitSessionButton") {
-        window.close();
-    }
-});
-
-checkActiveSession();
-
-document.addEventListener("DOMContentLoaded", function () {
+    // Event listener for the Quit Session button in the popup
+    document.getElementById("wateringPopup").addEventListener("click", function (event) {
+        if (event.target.id === "quitSessionButton") {
+            window.close();
+        }
+    });
 
     const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
 
@@ -166,10 +155,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("wateringPopup").style.display = "block";
     });
 
+    // document.getElementById("backButton").addEventListener("click", function () {
 
-    document.getElementById("backButton").addEventListener("click", function () {
-
-        localStorage.setItem("currentScreen", "mainContainer");
-        document.getElementById("mainContainer").style.display = "block";
-    });
+    //     localStorage.setItem("currentScreen", "mainContainer");
+    //     document.getElementById("mainContainer").style.display = "block";
+    // });
 });
