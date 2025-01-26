@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
         plantImageElement.alt = `Plant ${currentIndex + 1}`;
     }
 
-     // Function to check if the Start Watering button should be enabled
-     function checkStartWateringButton() {
+    // Function to check if the Start Watering button should be enabled
+    function checkStartWateringButton() {
         const minutesInput = document.getElementById("minutesInput").value;
         const mLInput = document.getElementById("mLInput").value;
         const startWateringButton = document.getElementById("startWatering");
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
         }
 
-        
+
         const freq = parseInt(document.getElementById("minutesInput").value);
         const goal = parseInt(document.getElementById("mLInput").value);
 
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-    
+
         // Send message to background.js
         chrome.runtime.sendMessage({
             action: "setUserInput",
@@ -127,10 +127,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log("Response from background:", response);
         });
+    });
 });
 
-  // Event listener for the Go Back button in the popup
-  document.getElementById("wateringPopup").addEventListener("click", function (event) {
+// Event listener for the Go Back button in the popup
+document.getElementById("wateringPopup").addEventListener("click", function (event) {
     if (event.target.id === "goBack") {
         // Show the main container again
         document.getElementById("mainContainer").style.display = "block";
@@ -139,36 +140,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-    // Event listener for the Quit Session button in the popup
+// Event listener for the Quit Session button in the popup
 document.getElementById("wateringPopup").addEventListener("click", function (event) {
     if (event.target.id === "quitSessionButton") {
         window.close();
     }
 });
 
-});
+checkActiveSession();
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const currentScreen = localStorage.getItem("currentScreen") || "mainContainer"; 
+    const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
 
     document.querySelectorAll(".container").forEach(container => {
-        container.style.display = "none"; 
+        container.style.display = "none";
     });
-    
+
     document.getElementById(currentScreen).style.display = "block";
- 
+
     document.getElementById("startWatering").addEventListener("click", function () {
-   
+
         localStorage.setItem("currentScreen", "wateringPopup");
         document.getElementById("mainContainer").style.display = "none";
         document.getElementById("wateringPopup").style.display = "block";
     });
 
- 
-    document.getElementById("quitSessionButton").addEventListener("click", function () {
-      
-    localStorage.setItem("currentScreen", "mainContainer");
+
+    document.getElementById("backButton").addEventListener("click", function () {
+
+        localStorage.setItem("currentScreen", "mainContainer");
         document.getElementById("mainContainer").style.display = "block";
     });
 });
