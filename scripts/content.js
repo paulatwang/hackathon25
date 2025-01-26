@@ -329,7 +329,4 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //         document.getElementById("waterIn").value = ""; // clear input value
 //     }
 // });
-
 // TODO: ADD SKIP BUTTON
-
-
