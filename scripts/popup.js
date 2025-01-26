@@ -149,8 +149,6 @@ document.getElementById("wateringPopup").addEventListener("click", function (eve
 
 checkActiveSession();
 
-});
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const currentScreen = localStorage.getItem("currentScreen") || "mainContainer";
