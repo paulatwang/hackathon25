@@ -54,15 +54,18 @@ body {
     padding: 0.5rem;
     cursor: pointer;
     font-size: 18px;
-    outline: none; /* Ensures no outline appears on focus */
+    outline: none;
+    /* Ensures no outline appears on focus */
 }
 
 .carousel-button:focus {
-    outline: none; /* Removes outline on focus */
+    outline: none;
+    /* Removes outline on focus */
 }
 
 .carousel-button:hover {
-    transform: translateY(-50%) scale(1.5); /* Scale up on hover */
+    transform: translateY(-50%) scale(1.5);
+    /* Scale up on hover */
 }
 
 .plant-image {
@@ -85,7 +88,7 @@ body {
     flex-direction: column;
     gap: 1rem;
     width: 300px;
-    
+
 }
 
 .input-group {
@@ -103,7 +106,8 @@ body {
     margin-left:95px;
 }
 
-.timer-container, .water.container {
+.timer-container,
+.water.container {
     display: flex;
     text-align: center;
     align-items: center;
@@ -156,6 +160,7 @@ input[type="number"] {
     margin-top: 1rem;
     margin-left: 30px;
 }
+
 .select-button {
     width: 100%;
     margin-top: 10px;
@@ -189,16 +194,21 @@ input[type="number"] {
     0% {
         transform: scale(1);
     }
+
     50% {
-        transform: scale(1.1); /* Scale up */
+        transform: scale(1.1);
+        /* Scale up */
     }
+
     100% {
-        transform: scale(1); /* Scale back to original size */
+        transform: scale(1);
+        /* Scale back to original size */
     }
 }
 
 .pulse {
-    animation: pulse 0.5s; /* Duration of the pulse animation */
+    animation: pulse 0.5s;
+    /* Duration of the pulse animation */
 }
 .btn2 {
     --btn-color: rgb(124 45 18);
@@ -279,66 +289,68 @@ input[type="number"] {
     border: 2px solid var(--btn-color);
     transition: 100ms ease;
     box-shadow: 5px 5px 0 0 var(--btn-color);
-  }
-  
-  .btn--secondary {
+}
+
+.btn--secondary {
     --btn-color: #444;
     --btn-bg: #fafafa;
-  }
-  
-  .btn svg {
+}
+
+.btn svg {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     box-shadow: 2px 2px 0 0 var(--btn-color);
-  }
-  
-  .btn:active {
+}
+
+.btn:active {
     transition: 50ms ease;
-    box-shadow:  0 0 0 0 var(--btn-color);
-  }
-  
-  .btn:focus-visible {
+    box-shadow: 0 0 0 0 var(--btn-color);
+}
+
+.btn:focus-visible {
     outline: 0;
     --btn-color: #002cc8;
-  }
-  
-  .btn:focus-visible::after {
+}
+
+.btn:focus-visible::after {
     position: absolute;
     left: 50%;
     top: calc(100% + 12px);
     transform: translateX(-50%);
     content: "\21E7";
     animation: float .5s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-      0% {
-          transform: translateX(-50%) translatey(0px);
-      }
-      50% {
-          transform: translateX(-50%) translatey(-6px);
-      }
-      100% {
-          transform: translateX(-50%) translatey(0px);
-      }
-  }
-  
-  html, body {
+}
+
+@keyframes float {
+    0% {
+        transform: translateX(-50%) translatey(0px);
+    }
+
+    50% {
+        transform: translateX(-50%) translatey(-6px);
+    }
+
+    100% {
+        transform: translateX(-50%) translatey(0px);
+    }
+}
+
+html,
+body {
     height: 100%;
-  }
-  
-  body {
+}
+
+body {
     display: grid;
     place-content: center;
-  }
-  
-  .container {
+}
+
+.container {
     display: flex;
     flex-wrap: wrap;
     gap: 0px;
-  }
-
+}

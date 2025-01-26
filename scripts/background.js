@@ -1,3 +1,4 @@
+// background.js
 // Initialize the extension
 // let isAggressiveMode = false;
 
@@ -7,6 +8,12 @@ chrome.runtime.onInstalled.addListener(async () => {
 
     // Set default values if not already set
     const data = await chrome.storage.local.get(["totalWater", "waterGoal", "plantStage", "plantType"]);
+    console.log(`data: ${data}`);
+    console.log(`totalWater: ${data.totalWater}`);
+    console.log(`waterGoal: ${data.waterGoal}`);
+    console.log(`plantStage: ${data.plantStage}`);
+    console.log(`plantType: ${data.plantType}`);
+
     if (!data.totalWater) {
         await chrome.storage.local.set({ totalWater: 0 });
     }
@@ -39,7 +46,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
         chrome.storage.local.set({ plantType: userType, waterGoal: userGoal });
 
-        sendResponse({ status: "success" });
+        sendResponse({ status: "success", message: "Set user input." });
     }
 });
 
@@ -69,6 +76,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === "hydrationReminder") {
+        console.log("timerSetOff event triggered in background.js");
+        chrome.tabs.query({ active: true }, function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, { action: "timerSetOff" }, function (response) { });
+        });
+    }
+});
+
 function resetNewDay() {
     let now = new Date();
     let midnight = new Date();
@@ -83,3 +99,12 @@ function resetNewDay() {
     }, timeToMidnight);
 }
 resetNewDay(); // Initialize the reset function when the background script loads
+
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log(
+        sender.tab
+            ? "(Im background.js) from a content script:" + sender.tab.url
+            : "(Im background.js) from the extension"
+    );
+});

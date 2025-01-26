@@ -20,11 +20,12 @@ function onload() {
     plant.classList.add("plant");
 
     // Check if there is a selected image option from the storage mechanism
-    chrome.storage.local.get(["plantType"], function (result) {
+    chrome.storage.local.get(["plantType", "plantStage"], function (result) {
         // Get the selected image option from the storage mechanism
         let plantType = result.plantType;
+        let plantStage = result.plantStage;
         console.log("Selected image: " + plantType);
-      
+
         // Add the plant class and type to the plant element
         plant.classList.add(plantType); // e.g., plant1, plant2, etc.
         plant.classList.add(plantStage); // e.g., pot, sprout1, sprout2, etc.
@@ -32,34 +33,46 @@ function onload() {
 
     document.body.appendChild(plant);
     const plantElement = document.querySelector(".plant");
+
     // Set the initial position for the plant
     setPosition(plantElement);
-}
+    const imageUrl = chrome.runtime.getURL("images/pot.png");
 
-// Listen for hydration reminders from background.js
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === "hydrationReminder") {
-        // Create a text box element when the alarm triggers
+    console.log("Image Path: ", imageUrl);
+    plantElement.style.backgroundImage = `url(${imageUrl})`;
+
+}
+window.addEventListener("load", onload);
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "timerSetOff") {
+        console.log("timerSetOff event received in content.js");
+
         const reminderBox = document.createElement("div");
         reminderBox.classList.add("hydration-reminder");
-
-        // Add some content to the text box
         reminderBox.innerHTML = `
             <h3>I'm Parched!</h3>
             <p>Hydrate yourself to hydrate me!</p>
         `;
 
-        // Append the reminder box to the body
         document.body.appendChild(reminderBox);
 
-        // Set a timer to remove the reminder box after a few seconds
         setTimeout(() => {
             document.body.removeChild(reminderBox);
-        }, 10000);  // Remove after 10 seconds
+        }, 10000);
     }
+    return true;
 });
 
-window.addEventListener("load", onload);
+// Listen for messages from the popup script
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log(
+        sender.tab
+            ? "(Im content.js) from a content script:" + sender.tab.url
+            : "(Im content.js) from the extension"
+    );
+});
 
 // Listen for messages from the popup script
 // chrome.runtime.onMessage.addListener(function (request, sendResponse) {
