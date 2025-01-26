@@ -1,9 +1,9 @@
-html{
-    width:460px;
+html {
+    width: 460px;
 }
 
 body {
-    font-family: 'Chewy',cursive;
+    font-family: 'Chewy', cursive;
     font-size: 20px;
     background-color: #FFF6DE;
     height: 100%;
@@ -20,10 +20,10 @@ body {
     border-radius: 8px;
     width: 400px;
     text-align: center;
-    }
+}
 
 .title {
-    font-family: 'Chewy',cursive;
+    font-family: 'Chewy', cursive;
     font-size: 60px;
     margin-bottom: 1rem;
     color: #4D92BC;
@@ -69,10 +69,13 @@ body {
 }
 
 .plant-image {
-    width: 200px; /* Set your desired width for the plant images */
-    height: auto; /* Maintain aspect ratio */
-    margin-top: 2px; /* Add horizontal spacing between the image and buttons */
-  
+    width: 200px;
+    /* Set your desired width for the plant images */
+    height: auto;
+    /* Maintain aspect ratio */
+    margin-top: 2px;
+    /* Add horizontal spacing between the image and buttons */
+
 }
 
 .prev {
@@ -103,7 +106,7 @@ body {
     border: 2px solid #000;
     border-radius: 8px;
     margin-top: 10px;
-    margin-left:95px;
+    margin-left: 95px;
 }
 
 .timer-container,
@@ -171,6 +174,7 @@ input[type="number"] {
     align-items: center;
     margin-right: 0px;
 }
+
 .select-button:hover {
     background-color: #4CAF50;
 }
@@ -195,6 +199,7 @@ input[type="number"] {
     animation: pulse 0.5s;
     /* Duration of the pulse animation */
 }
+
 .btn2 {
     --btn-color: rgb(124 45 18);
     --btn-bg: rgb(252 211 77);
@@ -216,41 +221,41 @@ input[type="number"] {
     border: 2px solid var(--btn-color);
     transition: 100ms ease;
     box-shadow: 5px 5px 0 0 var(--btn-color);
-  }
-  
-  .btn2--secondary {
+}
+
+.btn2--secondary {
     --btn-color: #444;
     --btn-bg: #fafafa;
-  }
-  
-  .btn2 svg {
+}
+
+.btn2 svg {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-  }
-  
-  .btn2:hover {
+}
+
+.btn2:hover {
     box-shadow: 2px 2px 0 0 var(--btn-color);
-  }
-  
-  .btn2:active {
+}
+
+.btn2:active {
     transition: 50ms ease;
-    box-shadow:  0 0 0 0 var(--btn-color);
-  }
-  
-  .btn2:focus-visible {
+    box-shadow: 0 0 0 0 var(--btn-color);
+}
+
+.btn2:focus-visible {
     outline: 0;
     --btn-color: #002cc8;
-  }
-  
-  .btn2:focus-visible::after {
+}
+
+.btn2:focus-visible::after {
     position: absolute;
     left: 50%;
     top: calc(100% + 12px);
     transform: translateX(-50%);
     content: "\21E7";
     animation: float .5s ease-in-out infinite;
-  }
+}
 
 
 .btn {

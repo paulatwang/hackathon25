@@ -1,15 +1,15 @@
 // PLANT
 
 // Set plant position
-function setPosition(element, ratio = 0.1) {
+function setPosition(element, ratio = 0.01) {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
     // Calculate the position based on the ratio
-    const rightMargin = screenWidth * ratio; // e.g., 10% of the screen width
-    const bottomMargin = screenHeight * ratio;
+    const rightMargin = screenWidth * ratio; // right ratio
+    const bottomMargin = screenHeight * ratio; // bottom ratio
 
-    element.style.position = 'absolute';
+    element.style.position = 'fixed';
     element.style.right = `${rightMargin}px`;
     element.style.bottom = `${bottomMargin}px`;
 }
